@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 using MathLibrary;
 
 namespace MathForGames
@@ -51,7 +52,20 @@ namespace MathForGames
 
         public override void OnCollision(Actor actor)
         {
-            Engine.CloseApplication();
+            if (actor.Name == "Wall")
+                Position -= Velocity;
+            else if (actor.Name == "Enemy")
+            {
+                Engine.CloseApplication();
+            }
+            else if (actor.Name == "End")
+            {
+                Engine.CloseApplication();
+            }
+                
+            
+                
+                
         }
     }
 }

@@ -37,10 +37,60 @@ namespace MathForGames
         }
 
         /// <summary>
-        /// Calledwhen the application starts
+        /// Called when the application starts
         /// </summary>
         private void Start()
         {
+            Scene scene = new Scene();
+
+            Player player = new Player('@', 5, 5, 1, "Player", ConsoleColor.DarkMagenta);
+
+            Enemy enemy = new Enemy('O', 8, 0, 1, "Enemy", ConsoleColor.Red);
+
+            Enemy enemy1 = new Enemy('O', 16, 0, 2, "Enemy", ConsoleColor.Red);
+
+            Enemy enemy2 = new Enemy('O', 24, 0, 4, "Enemy", ConsoleColor.Red);
+
+            Enemy enemy3 = new Enemy('O', 32, 0, 5, "Enemy", ConsoleColor.Red);
+
+            Enemy enemy4 = new Enemy('O', 40, 0, 10, "Enemy", ConsoleColor.Red);
+
+            Actor end = new Actor('O', 48, 10, "End", ConsoleColor.Green);
+
+            for (int i = 2; i < 50; i++)
+            {
+                Actor wall = new Actor('_', i, 0, "Wall");
+                scene.AddActor(wall);
+            }
+
+            for (int i = 1; i < 21; i++)
+            {
+                Actor wall = new Actor('|', 1, i, "Wall");
+                scene.AddActor(wall);
+            }
+
+            for (int i = 2; i < 50; i++)
+            {
+                Actor wall = new Actor('_', i, 20, "Wall");
+                scene.AddActor(wall);
+            }
+
+            for (int i = 1; i < 21; i++)
+            {
+                Actor wall = new Actor('|', 50, i, "Wall");
+                scene.AddActor(wall);
+            }
+
+            scene.AddActor(player);
+            scene.AddActor(enemy);
+            scene.AddActor(enemy1);
+            scene.AddActor(enemy2);
+            scene.AddActor(enemy3);
+            scene.AddActor(enemy4);
+            scene.AddActor(end);
+
+            _currentSceneIndex = AddScene(scene);
+
             _scenes[_currentSceneIndex].Start();
         }
 
@@ -165,6 +215,11 @@ namespace MathForGames
         public static void CloseApplication()
         {
             _applicationShouldClose = true;
+        }
+
+        public static void ChangeScene(int currentSceneIndex)
+        {
+            _currentSceneIndex = currentSceneIndex;
         }
     }
 }
