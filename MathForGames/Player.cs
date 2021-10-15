@@ -10,11 +10,18 @@ namespace MathForGames
     {
         private float _speed;
         private Vector2 _velocity;
+        private int _lives = 3;
 
         public float Speed
         {
             get { return _speed; }
             set { _speed = value; }
+        }
+
+        public int Lives
+        {
+            get { return _lives; }
+            set { _lives = value; }
         }
 
         public Vector2 Velocity
@@ -54,9 +61,15 @@ namespace MathForGames
         {
             if (actor.Name == "Wall")
                 Position -= Velocity;
+            else if (actor.Name == "ThrowZone")
+                Position -= Velocity;
             else if (actor.Name == "Enemy")
             {
-                Engine.CloseApplication();
+                Lives--;
+                Position = new Vector2 { X = 3, Y = 10 };
+
+                if (Lives <= 0)
+                    Engine.CloseApplication();
             }
             else if (actor.Name == "End")
             {

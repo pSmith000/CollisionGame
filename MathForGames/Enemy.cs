@@ -32,9 +32,19 @@ namespace MathForGames
 
         public override void Update()
         {
+            Random rnd = new Random();
+            Speed = rnd.Next(1, 5);
+
+            if (Position.Y > 20 || Position.Y < 0)
+            {
+                Speed = 5;
+                _moveDirection *= -1;
+
+            }
+
             Velocity = _moveDirection * Speed;
 
-            Position += Velocity;
+            Position += Velocity;   
         }
 
         public override void OnCollision(Actor actor)
@@ -43,10 +53,7 @@ namespace MathForGames
             {
                 _moveDirection *= -1;
             }
-            else if (actor.Name == "Player")
-            {
-                Engine.CloseApplication();
-            }
+            
                 
         }
     }   

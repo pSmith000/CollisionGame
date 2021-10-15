@@ -10,10 +10,12 @@ namespace MathForGames
         /// Array that contains all actors in the scene
         /// </summary>
         private Actor[] _actors;
+        private Actor[] _UIElements;
 
         public Scene()
         {
             _actors = new Actor[0];
+            _UIElements = new Actor[0];
         }
 
         /// <summary>
@@ -49,6 +51,16 @@ namespace MathForGames
             }
         }
 
+        public virtual void UpdateUI()
+        {
+            for (int i = 0; i < _UIElements.Length; i++)
+            {
+                if (!_UIElements[i].Started)
+                    _UIElements[i].Start();
+
+                _UIElements[i].Update();
+            }
+        }
         /// <summary>
         /// Calls draw for every actor in the array
         /// </summary>
@@ -57,6 +69,14 @@ namespace MathForGames
             for (int i = 0; i < _actors.Length; i++)
             {
                 _actors[i].Draw();
+            }
+        }
+
+        public virtual void DrawUI()
+        {
+            for (int i = 0; i < _UIElements.Length; i++)
+            {
+                _UIElements[i].Draw();
             }
         }
 
@@ -91,6 +111,24 @@ namespace MathForGames
 
             //Set the old array to be the new array
             _actors = tempArray;
+        }
+
+        public virtual void AddUIElement(Actor UI)
+        {
+            //Create a temp array larger than the original
+            Actor[] tempArray = new Actor[_UIElements.Length + 1];
+
+            //Copy all values from the original array into the temp array
+            for (int i = 0; i < _UIElements.Length; i++)
+            {
+                tempArray[i] = _UIElements[i];
+            }
+
+            //Add the new actor to the end of the new array
+            tempArray[_UIElements.Length] = UI;
+
+            //Set the old array to be the new array
+            _UIElements = tempArray;
         }
 
         /// <summary>
@@ -130,6 +168,40 @@ namespace MathForGames
 
             return actorRemoved;
             
+        }
+
+        public virtual bool RemoveUIElement(Actor UI)
+        {
+            //Create a variable to store if the removal was successful
+            bool UIRemoved = false;
+
+            //Create a new array that is smaller than the original
+            Actor[] tempArray = new Actor[_UIElements.Length - 1];
+
+            //Copy all values except the actor we don't want into the new array
+            int j = 0;
+            for (int i = 0; i < tempArray.Length; i++)
+            {
+                //If the actor that the loop is on is not the one to remove...
+                if (_UIElements[i] != UI)
+                {
+                    //...add the actor back into the new array
+                    tempArray[j] = _UIElements[i];
+                    j++;
+                }
+                //Otherwise if this actor is the one to remove...
+                else
+                    //...set actorRemoved to true
+                    UIRemoved = true;
+            }
+
+            //If the actor removal was successful...
+            if (UIRemoved)
+                //...set the old array to be the new array
+                _UIElements = tempArray;
+
+            return UIRemoved;
+
         }
     }
 }
