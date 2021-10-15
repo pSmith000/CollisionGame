@@ -57,9 +57,9 @@ namespace MathForGames
 
             Actor end = new Actor('O', 48, 10, "End", ConsoleColor.Green);
 
-            UIText healthText = new UIText(53, 2, "Health", ConsoleColor.White, 20, 10, " Hello. \n\n Get to the GREEN     circle to survive.");
+            UIText healthText = new UIText(53, 3, "Health", ConsoleColor.White, 20, 10, " Hello. \n\n Get to the GREEN     circle to survive.");
 
-            UIText livesText = new UIText(54, 0, "Lives", ConsoleColor.White, 10, 10);
+            UIText livesText = new UIText(54, 1, "Lives", ConsoleColor.White, 10, 10);
 
             UIText zone = new UIText(20, 23, "Throw Zone", ConsoleColor.Gray, 10, 10, "Throw Zone");
 
